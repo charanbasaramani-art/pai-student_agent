@@ -1009,6 +1009,19 @@ export default function App() {
             </div>
           </div>
 
+          {/* Static Sandbox Notification Banner */}
+          {localStorage.getItem("pai_force_sandbox") === "true" && (
+            <div className="bg-indigo-950/20 border border-indigo-500/30 rounded-2xl p-4 flex items-center gap-3.5 animate-fade-in text-indigo-200 text-xs shadow-lg shadow-indigo-950/10">
+              <span className="flex h-2.5 w-2.5 relative shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-indigo-400"></span>
+              </span>
+              <div className="flex-1 select-none leading-relaxed text-slate-300">
+                <strong className="text-indigo-300">HYBRID PLAYGROUND SANDBOX DETECTED:</strong> Running on a static host (Netlify). PAI has automatically fallback-synchronized a fast client-side browser database so all features (Planner, Note-taking, To-Do track) are 100% active. To unlock persistent Cloud Firestore sync, real-time voice commands, and live Gemini AI web-grounding, simply deploy PAI's backend Express server (<code className="font-mono text-[11px] bg-slate-900 px-1 py-0.5 rounded text-indigo-300 border border-slate-800">server.ts</code>) to a full-stack container host (Railway, Render, or Cloud Run).
+              </div>
+            </div>
+          )}
+
           {/* Productivity progress bar & key metrics bento block */}
           <div className="bg-[#0D1117]/70 backdrop-blur-md border border-slate-800/80 p-6 rounded-2xl shadow-xl select-none flex flex-col sm:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-3 w-full sm:w-auto">
