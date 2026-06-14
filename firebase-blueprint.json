@@ -1,0 +1,204 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and visual/personality preferences.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "fullName": { "type": "string" },
+        "preferences": {
+          "type": "object",
+          "properties": {
+            "theme": { "type": "string", "enum": ["dark", "light", "cyberpunk", "nebula", "system"] },
+            "voiceName": { "type": "string" },
+            "speechEnabled": { "type": "boolean" },
+            "voiceCommandsEnabled": { "type": "boolean" },
+            "voiceFeedbackSoundsEnabled": { "type": "boolean" },
+            "agentPersonality": { "type": "string" },
+            "voiceType": { "type": "string" },
+            "voiceSelected": { "type": "string" },
+            "voiceRate": { "type": "number" },
+            "voicePitch": { "type": "number" },
+            "voiceVolume": { "type": "number" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "email", "fullName"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "A productivity task representing a user action plan.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "priority": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH", "URGENT"] },
+        "status": { "type": "string", "enum": ["TODO", "IN_PROGRESS", "COMPLETED"] },
+        "dueDate": { "type": "string" },
+        "category": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "priority", "status", "category", "createdAt"]
+    },
+    "Goal": {
+      "title": "Goal",
+      "description": "Short or long-term productivity milestone tracking.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "targetDate": { "type": "string" },
+        "progress": { "type": "integer" },
+        "type": { "type": "string", "enum": ["SHORT_TERM", "LONG_TERM"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "progress", "type", "createdAt"]
+    },
+    "Note": {
+      "title": "Note",
+      "description": "Knowledge base notebook entry.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "category": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "content", "category", "createdAt", "updatedAt"]
+    },
+    "FileMeta": {
+      "title": "FileMeta",
+      "description": "Uploaded asset or file metadata compiled by Gemini.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "size": { "type": "integer" },
+        "mimeType": { "type": "string" },
+        "contentSummary": { "type": "string" },
+        "extractedText": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "name", "size", "mimeType", "createdAt"]
+    },
+    "Memory": {
+      "title": "Memory",
+      "description": "Long-term factual memory card.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "content": { "type": "string" },
+        "category": { "type": "string", "enum": ["PREFERENCE", "GOAL", "INTEREST", "FACT", "SUMMARY"] },
+        "strength": { "type": "integer" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "content", "category", "strength", "createdAt"]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "An interactive agent chat session thread.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "sender": { "type": "string", "enum": ["user", "agent"] },
+              "content": { "type": "string" },
+              "timestamp": { "type": "string" },
+              "audioUrl": { "type": "string" },
+              "toolsUsed": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      },
+      "required": ["id", "userId", "title", "updatedAt", "messages"]
+    },
+    "AppNotification": {
+      "title": "AppNotification",
+      "description": "System or task-driven insight alert.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "type": { "type": "string", "enum": ["TASK", "SYSTEM", "INSIGHT", "MEMORY"] },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "content", "type", "read", "createdAt"]
+    },
+    "SystemAnalytics": {
+      "title": "SystemAnalytics",
+      "description": "User token and latency counters.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "totalTokensUsed": { "type": "number" },
+        "apiCallsCount": { "type": "number" },
+        "responseTimeMsAverage": { "type": "number" },
+        "taskCompletionRate": { "type": "number" },
+        "memoryEntriesCount": { "type": "number" },
+        "lastActive": { "type": "string" }
+      },
+      "required": ["userId", "totalTokensUsed", "apiCallsCount", "responseTimeMsAverage"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Top-level user properties."
+    },
+    "users/{userId}/tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/Task" },
+      "description": "All to-dos for a given user."
+    },
+    "users/{userId}/goals/{goalId}": {
+      "schema": { "$ref": "#/entities/Goal" },
+      "description": "All targets for a given user."
+    },
+    "users/{userId}/notes/{noteId}": {
+      "schema": { "$ref": "#/entities/Note" },
+      "description": "All notebook items for a given user."
+    },
+    "users/{userId}/files/{fileId}": {
+      "schema": { "$ref": "#/entities/FileMeta" },
+      "description": "All visual and text document attachments."
+    },
+    "users/{userId}/memories/{memoryId}": {
+      "schema": { "$ref": "#/entities/Memory" },
+      "description": "Agent acquired cognitive memories."
+    },
+    "users/{userId}/conversations/{conversationId}": {
+      "schema": { "$ref": "#/entities/Conversation" },
+      "description": "Saved active conversation history threads."
+    },
+    "users/{userId}/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/AppNotification" },
+      "description": "Triggered insights and tracking indicators."
+    },
+    "users/{userId}/analytics/main": {
+      "schema": { "$ref": "#/entities/SystemAnalytics" },
+      "description": "Performance aggregates tracking table."
+    }
+  }
+}

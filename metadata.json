@@ -1,0 +1,6 @@
+{
+  "name": "PAI Personal AI Agent Platform",
+  "description": "A futuristic and professional Student Research & Study AI Agent companion featuring study planners, conversational learning, documents summarizers, OCR text extraction, and smart study task indices.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
